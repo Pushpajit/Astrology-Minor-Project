@@ -11,7 +11,7 @@ function LeftSideBar(props) {
   const [value, setValue] = useState(null);
   const now = new Date();
 
-  console.log(value);
+  // console.log(value);
 
   function handleState(){
     props.setValue(date);
@@ -19,7 +19,7 @@ function LeftSideBar(props) {
   }
 
   return (
-    <section className='bg-slate-700 w-[400px] h-[100vh] sticky p-5 text-white'>
+    <section className='bg-slate-700 w-[400px] h-[100vh] sticky p-5 text-white left-0 top-5'>
       <Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar onChange={(newValue) => setDate(newValue)} defaultValue={dayjs(now.toLocaleDateString())} />
@@ -31,7 +31,7 @@ function LeftSideBar(props) {
           />
         </LocalizationProvider>
 
-        <Button color='secondary' onClick={handleState} variant='contained' sx={{ width: "100%" }}>Calculate</Button>
+        <Button color='secondary' onClick={handleState} variant='contained' sx={{ width: "100%" }}>prophecy</Button>
       </Box>
     </section>
   )

@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  width: 0.5em; /* Adjust the width to zero */
+
+
+/* Hide the scrollbar thumb in Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 }
 
+
 ::-webkit-scrollbar-thumb {
-  background-color: transparent; /* Hide the scrollbar thumb */
+  background-color: none; /* Hide the scrollbar thumb */
 }
 
 /* Hide scrollbars in Firefox */
@@ -19,6 +24,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(206, 215, 223);
 }
 
 body {
