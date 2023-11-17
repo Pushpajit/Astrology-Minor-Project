@@ -13,11 +13,7 @@ function ZodiacCard({ name, date, description }) {
     
 
     return (
-        // <div className="h-fit border border-slate-500 w-1/4 group rounded-lg bg-white p-4 m-4 shadow-lg transform hover:scale-105 hover:shadow-xl hover:cursor-pointer transition-transform transition-shadow">
-        //     <h2 className="text-2xl font-semibold">{name}</h2>
-        //     <p className="text-gray-600">{date}</p>
-        //     <p className="text-gray-700 mt-2">{description}</p>
-        // </div>
+        
         <div className={`${flip} hover:cursor-pointer`} >
             <div className="flip-card-inner" >
                 <div class="flip-card-front " onClick={() => setFlip("flip")}>
@@ -25,7 +21,6 @@ function ZodiacCard({ name, date, description }) {
                     <p className="text-gray-600">{date}</p>
                     <p className="text-gray-700 mt-2">{description}</p>
 
-                    {/* <Button onClick={handleSwap} color='warning' size='small' variant='outlined' sx={{width: 20, marginX: "auto", marginTop: 5}}>click</Button> */}
                 </div>
 
                 <div className="flip-card-back flex flex-col justify-between">

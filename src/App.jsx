@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import LeftSideBar from "./components/LeftSideBar";
 import MainSection from "./components/MainSection";
 import { ThemeProvider, createTheme } from "@mui/material";
+import Panchang from "./components/Panchang";
 
 
 function App() {
@@ -23,7 +24,13 @@ function App() {
       <div className="flex gap-10">
 
         <LeftSideBar setValue={setValue} setTime={setTime}/>
-        <MainSection value={value} time={time}/>
+
+        <div>
+          <div className="w-full h-1/2 bg-slate-600/50 border-[2px] border-dashed rounded-md">
+            <Panchang date={value} time={time}/>
+          </div>
+          <MainSection value={value} time={time}/>
+        </div>
       </div>
     </ThemeProvider>
      

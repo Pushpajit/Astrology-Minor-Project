@@ -83,10 +83,7 @@ function MainSection(props) {
 
   return (
     <main>
-      {time.toLocaleTimeString()}
-      <br></br>
-      {date.toLocaleDateString()}
-
+      
       <div className='flex flex-wrap justify-evenly'>
         
         {zodiacSigns.map((sign, index) => (

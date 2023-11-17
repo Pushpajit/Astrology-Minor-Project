@@ -19,7 +19,7 @@ function LeftSideBar(props) {
   }
 
   return (
-    <section className='bg-slate-700 w-[400px] h-[100vh] sticky p-5 text-white left-0 top-5'>
+    <section className='bg-slate-700 w-[400px] h-[100vh] sticky p-5 text-white left-0 top-4'>
       <Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar onChange={(newValue) => setDate(newValue)} defaultValue={dayjs(now.toLocaleDateString())} />
