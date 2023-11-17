@@ -11,3 +11,7 @@ Github repo [panchangJS](https://github.com/schenna/panchangJS)
 ## Frontend module used
 * Tailwindcss
 * Material UI5
+## Team Member
+* ALI JOUHAR S
+* PUSHPAJIT BISWAS
+* SMRITY VERMA
