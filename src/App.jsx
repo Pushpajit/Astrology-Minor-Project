@@ -9,31 +9,34 @@ import Panchang from "./components/Panchang";
 function App() {
   const [value, setValue] = useState(null);
   const [time, setTime] = useState(null);
+  const [zodiacData, setZodiacData] = useState(null);
 
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
     },
   });
-  
+
+  // console.log(zodiacData[0]);
+
   return (
     <>
-    <ThemeProvider theme={darkTheme}>
-      <Header />
-      
-      <div className="flex gap-10">
+      <ThemeProvider theme={darkTheme}>
+        <Header />
 
-        <LeftSideBar setValue={setValue} setTime={setTime}/>
+        <div className="flex ">
 
-        <div>
-          <div className="w-full h-1/2 bg-slate-600/50 border-[2px] border-dashed rounded-md">
-            <Panchang date={value} time={time}/>
+          <LeftSideBar setValue={setValue} setTime={setTime} />
+
+          <div>
+            <div className="w-full h-fit bg-slate-600/50 border-[2px] border-dashed rounded-md">
+              <Panchang date={value} time={time} setZodiacData={setZodiacData}/>
+            </div>
+              <MainSection value={value} time={time} data={zodiacData ? zodiacData[0] : null}/>
           </div>
-          <MainSection value={value} time={time}/>
         </div>
-      </div>
-    </ThemeProvider>
-     
+      </ThemeProvider>
+
     </>
   );
 }

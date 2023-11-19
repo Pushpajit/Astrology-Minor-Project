@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from 'react'
 
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 
+import SearchIcon from '@mui/icons-material/Search';
+import InfoIcon from '@mui/icons-material/Info';
+import { IconButton, Popover, Tooltip, Typography } from '@mui/material';
+
+
+const formatDate = (dateObj) => {
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const year = String(dateObj.getFullYear()).slice(-2); // Extract last 2 digits of the year
+
+  return `${day}/${month}/${year}`;
+};
 
 function Panchang(props) {
   const [panjiData, setPanjiData] = useState([]);
   const [entries, setEntries] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [ID, setID] = useState("AUSPICIOUS TIME");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/panjiData'); // Replace with your API endpoint
-        if (!response.ok) {
-          throw new Error('Network response was not ok.');
-        }
-        const data = await response.json();
-        setPanjiData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
 
-    fetchData();
-  }, []);
 
-  // console.log(panjiData);
-
-  // console.log(props.time);
   let date;
   let time;
   if (props.date)
@@ -41,11 +37,46 @@ function Panchang(props) {
   else
     time = new Date();
 
-  if (panjiData.length >= 1 && entries.length === 0)
+  useEffect(() => {
+    setEntries([]);
+    setPanjiData([]);
+    props.setZodiacData(null);
+
+    const fetchData = async () => {
+      // console.log(formatDate(date));
+      try {
+        setIsLoading(true);
+        const response = await fetch(`http://localhost:5000/api/panjiData?ENG_DATE=${formatDate(date)}`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Network response was not ok.');
+        }
+        const data = await response.json();
+
+        setPanjiData(data);
+        props.setZodiacData(data);
+        setIsLoading(false);
+      } catch (error) {
+        alert('Error fetching data: ' + error);
+      }
+    };
+
+    fetchData();
+  }, [props.date]);
+
+
+
+  // console.log(props.time);
+
+
+  // Extract all the keys from the panjiData.
+  if (panjiData.length >= 1 && entries.length === 0) {
     setEntries(Object.entries(panjiData[0]));
+    // console.log(panjiData[0]);
+  }
 
-  // console.log(entries);
 
+
+  // console.log(formatDate(date));
 
 
   // *****************************Handlers****************************//
@@ -63,11 +94,26 @@ function Panchang(props) {
     }
   };
 
+  // Handle popover
+  const handleClick = (event) => {
+    setID(event.currentTarget.id)
+    // console.log(event.currentTarget.id);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   // *****************************Handlers End****************************//
 
   return (
-    <div className='p-5 w-full '>
+    <div className='p-5 w-full'>
 
+      {/* Search Box */}
       <div className='float-right bg-slate-500 rounded-md'>
         <div style={{ width: 350, display: 'flex', alignItems: 'center', borderRadius: '10px', padding: '5px' }}>
           <SearchIcon style={{ marginRight: '5px', color: "whitesmoke" }} />
@@ -80,9 +126,22 @@ function Panchang(props) {
           />
         </div>
       </div>
+
+      {/* Headline */}
       <div className="mt-4 bg-transparent min-h-screen py-8 ">
         <div className="flex flex-col justify-center items-center">
-          <h1 className="text-4xl font-bold mb-4 text-slate-800">Panchang for {panjiData.length >= 1 && panjiData[0]?.ENG_DATE}</h1>
+          <h1 className="text-4xl font-bold mb-6 text-slate-600">Panchang for {date.toDateString()}</h1>
+
+          {/* If there is no data for that perticular date */}
+          {entries.length === 0 && !isLoading && <p className='text-2xl mt-52 font-bold text-slate-800 opacity-25'>No Data Available 📪</p>}
+
+
+          {isLoading && <div>
+            <img className='object-cover' src="https://media.tenor.com/ZiTcv4QbONsAAAAi/discord-world.gif" alt="" />
+            {/* <p className='text-2xl text-center font-bold text-slate-300'>Fetching</p> */}
+          </div>}
+
+          {/* If data is available for that perticular date */}
           <div className="flex flex-wrap justify-evenly gap-5 ">
             {entries && entries.map((item, ind) => (
               (item[0] !== "YOGINI" &&
@@ -90,15 +149,82 @@ function Panchang(props) {
                 item[0] !== "GHATA CHANDRA") &&
               item[0] !== "AUSPICIOUS TIME" &&
               item[0] !== "BARRED/INAUSPICIOUS TIME" &&
+              item[0] !== "TARA SUDDHI" &&
               item[0] !== "_id" &&
 
-              (item[0].toLowerCase().includes(searchQuery.toLowerCase()) && <div key={ind} className="border border-slate-300 p-3 w-[350px] rounded-md hover:cursor-pointer bg-slate-600 text-white">
-                <p className="font-bold">{item[0]}</p>
-                <p>{item[1]}</p>
-              </div>)
+              (item[0].toLowerCase().includes(searchQuery.toLowerCase()) &&
+                <div key={ind} className="border border-slate-300 p-3 w-[350px] rounded-md hover:border-dashed hover:cursor-pointer hover:shadow-2xl bg-slate-600 text-white hover:scale-105 transition-all">
+                  <p className="font-bold">{item[0]}</p>
+                  <p>{item[1]}</p>
+                </div>)
 
             ))}
+
           </div>
+
+          <div className='flex gap-10 items-center'>
+
+            {entries.length > 0 && "YOGINI TARA SUDDHI".toLowerCase().includes(searchQuery.toLowerCase()) &&
+
+              <div className="border border-dashed border-slate-300 p-1 mt-2 w-fit rounded-md hover:cursor-pointer shadow-2xl bg-slate-600 text-white">
+                <div className='p-2 flex  gap-5'>
+
+                  <div className='text-center'>
+                    <p className="font-bold ">Yogini</p>
+                    {panjiData.length > 0 && panjiData[0]["YOGINI"].map((item, ind) => {
+                      return <p>{item}</p>
+                    })}
+                  </div>
+
+                  <div className='text-center'>
+                    <p className="font-bold">Tara Suddhi</p>
+                    {panjiData.length > 0 && panjiData[0]["TARA SUDDHI"].map((item, ind) => {
+                      return <p>{item}</p>
+                    })}
+                  </div>
+                </div>
+
+                <div className='flex justify-between'>
+                  <Tooltip title={"AUSPICIOUS TIME"}>
+                    <IconButton id='AUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
+                      <InfoIcon color='primary' />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title={"INAUSPICIOUS TIME"}>
+                    <IconButton id='INAUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
+                      <InfoIcon color='warning' />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+
+              </div>}
+          </div>
+
+
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+
+          >
+            <p className='p-2 text-center text-sm font-semibold'>{ID}</p>
+            {
+              panjiData.length > 0 && ID === "AUSPICIOUS TIME" ? panjiData[0]["AUSPICIOUS TIME"]?.map((item, ind) => {
+                return <p key={ind} className='p-2 text-sm'>{item}</p>
+              })
+                :
+                panjiData.length > 0 && panjiData[0]["BARRED/INAUSPICIOUS TIME"]?.map((item, ind) => {
+                  return <p key={ind} className='p-2 text-sm'>{item}</p>
+                })
+            }
+          </Popover>
+
         </div>
       </div>
     </div>
