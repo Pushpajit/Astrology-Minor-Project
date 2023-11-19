@@ -6,7 +6,7 @@ function Header() {
       <div>
         <img className='object-cover' src="https://media.tenor.com/ZiTcv4QbONsAAAAi/discord-world.gif" alt="" style={{width: 28, height: 28}} />
       </div>
-      <p className='text-2xl font-bold'>Astrology</p>
+      <p className='text-2xl font-bold'>Panchang</p>
     </nav>
 
   )
