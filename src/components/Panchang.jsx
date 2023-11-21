@@ -4,7 +4,37 @@ import InputBase from '@mui/material/InputBase';
 
 import SearchIcon from '@mui/icons-material/Search';
 import InfoIcon from '@mui/icons-material/Info';
-import { IconButton, Popover, Tooltip, Typography } from '@mui/material';
+import { Button, IconButton, Popover, Tooltip, Typography } from '@mui/material';
+
+
+import Aquarius from '../assets/xaquarius_kumbha.png';
+import Aries from '../assets/xaries_mesha.png';
+import Cancer from '../assets/xcancer_karka.png';
+import Capricorn from '../assets/xcapricorn_makara.png';
+import Gemini from '../assets/xgemini_mithuna.png';
+import Leo from '../assets/xleo_simha.png';
+import Libra from '../assets/xlibra_tula.png';
+import Pisces from '../assets/xpisces_meena.png';
+import Sagittarius from '../assets/xsagittarius_dhanu.png';
+import Scorpio from '../assets/xscorpio_vrishchika.png';
+import Taurus from '../assets/xtaurus_vrishabha.png';
+import Virgo from '../assets/xvirgo_kanya.png';
+import MainSection from './MainSection';
+
+const IMAGE = {
+  Aquarius,
+  Aries,
+  Cancer,
+  Capricorn,
+  Gemini,
+  Leo,
+  Libra,
+  Pisces,
+  Sagittarius,
+  Scorpio,
+  Taurus,
+  Virgo
+}
 
 
 const formatDate = (dateObj) => {
@@ -71,9 +101,9 @@ function Panchang(props) {
   // Extract all the keys from the panjiData.
   if (panjiData.length >= 1 && entries.length === 0) {
     setEntries(Object.entries(panjiData[0]));
-    // console.log(panjiData[0]);
+    // console.log(entries);
+    // console.log(panjiData[0]["CHANDRA SUDDHI"].FULL);
   }
-
 
 
   // console.log(formatDate(date));
@@ -114,8 +144,8 @@ function Panchang(props) {
     <div className='p-5 w-full'>
 
       {/* Search Box */}
-      <div className='float-right bg-slate-500 rounded-md'>
-        <div style={{ width: 350, display: 'flex', alignItems: 'center', borderRadius: '10px', padding: '5px' }}>
+      <div className='float-right bg-slate-500 rounded-md '>
+        <div style={{ width: 350, display: 'flex', alignItems: 'center', padding: '5px' }}>
           <SearchIcon style={{ marginRight: '5px', color: "whitesmoke" }} />
           <InputBase
             placeholder="Search..."
@@ -128,7 +158,7 @@ function Panchang(props) {
       </div>
 
       {/* Headline */}
-      <div className="mt-4 bg-transparent min-h-screen py-8 ">
+      <div className="mt-4 bg-transparent min-w-[75vw] min-h-[100vh] py-8 ">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-4xl font-bold mb-6 text-slate-600">Panchang for {date.toDateString()}</h1>
 
@@ -162,44 +192,7 @@ function Panchang(props) {
 
           </div>
 
-          <div className='flex gap-10 items-center'>
 
-            {entries.length > 0 && "YOGINI TARA SUDDHI".toLowerCase().includes(searchQuery.toLowerCase()) &&
-
-              <div className="border border-dashed border-slate-300 p-1 mt-2 w-fit rounded-md hover:cursor-pointer shadow-2xl bg-slate-600 text-white">
-                <div className='p-2 flex  gap-5'>
-
-                  <div className='text-center'>
-                    <p className="font-bold ">Yogini</p>
-                    {panjiData.length > 0 && panjiData[0]["YOGINI"].map((item, ind) => {
-                      return <p>{item}</p>
-                    })}
-                  </div>
-
-                  <div className='text-center'>
-                    <p className="font-bold">Tara Suddhi</p>
-                    {panjiData.length > 0 && panjiData[0]["TARA SUDDHI"].map((item, ind) => {
-                      return <p>{item}</p>
-                    })}
-                  </div>
-                </div>
-
-                <div className='flex justify-between'>
-                  <Tooltip title={"AUSPICIOUS TIME"}>
-                    <IconButton id='AUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
-                      <InfoIcon color='primary' />
-                    </IconButton>
-                  </Tooltip>
-
-                  <Tooltip title={"INAUSPICIOUS TIME"}>
-                    <IconButton id='INAUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
-                      <InfoIcon color='warning' />
-                    </IconButton>
-                  </Tooltip>
-                </div>
-
-              </div>}
-          </div>
 
 
           <Popover
@@ -227,6 +220,155 @@ function Panchang(props) {
 
         </div>
       </div>
+
+      {/* Yogini and TARA suddhi */}
+      <div className='flex gap-10 items-center mb-8 ml-14 mr-14'>
+
+        {entries.length > 0 && "YOGINI TARA SUDDHI".toLowerCase().includes(searchQuery.toLowerCase()) &&
+
+          <div className="border border-dashed border-slate-300 p-1 mt-2 w-full rounded-md hover:cursor-pointer bg-slate-600 text-white">
+            <div className='p-2 flex  gap-5 justify-evenly'>
+
+              <div className='text-center'>
+                <p className="font-bold mb-2">Yogini</p>
+
+                <div className="overflow-x-auto">
+                  <table className="w-[580px] table-auto border border-gray-200">
+                    <thead>
+
+                      <tr>
+                        <th className="px-4 py-2 bg-slate-400 border border-gray-200">Direction</th>
+                        <th className="px-4 py-2 bg-slate-400 border border-gray-200">Period</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {panjiData.length > 0 && panjiData[0]["YOGINI"].map((item, ind) => {
+                        const splitData = item.split(': ')
+                        // console.log(splitData);
+                        return (
+                          <tr>
+                            <td className="px-4 py-2 border border-gray-200">{splitData[0]}</td>
+                            <td className="px-4 py-2 border border-gray-200">{splitData[1]}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+              {/* Tara suddhi */}
+              <div className='text-center'>
+                <p className="font-bold mb-2">Tara Suddhi</p>
+                <div className="overflow-x-auto">
+                  <table className="w-[580px] table-auto border border-gray-200">
+                    <thead>
+
+                      <tr>
+                        <th className="px-4 py-2 bg-slate-400 border border-gray-200">Tara</th>
+                        <th className="px-4 py-2 bg-slate-400 border border-gray-200">Period</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {panjiData.length > 0 && panjiData[0]["TARA SUDDHI"].map((item, ind) => {
+                        const splitData = item.split(' : ')
+                        // console.log(splitData);
+                        return (
+                          <tr>
+                            <td className="px-4 py-2 border border-gray-200">{splitData[0]}</td>
+                            <td className="px-4 py-2 border border-gray-200">{splitData[1]}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <div className='flex justify-around'>
+
+              {/* <IconButton id='AUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
+                  <InfoIcon color='primary' />
+                </IconButton> */}
+
+              <Button id='AUSPICIOUS TIME' color='success' variant='contained' onClick={handleClick} sx={{ marginTop: 2 }}>
+                AUSPICIOUS TIME
+              </Button>
+
+
+
+              {/* <IconButton id='INAUSPICIOUS TIME' onClick={handleClick} sx={{ marginTop: 2 }}>
+                  <InfoIcon color='warning' />
+                  
+                </IconButton> */}
+              <Button id='INAUSPICIOUS TIME' color='error' variant='contained' onClick={handleClick} sx={{ marginTop: 2 }}>
+                INAUSPICIOUS TIME
+              </Button>
+
+
+            </div>
+
+
+          </div>
+
+
+        }
+
+
+
+
+      </div>
+      {/* Table */}
+      {panjiData.length > 0 && <div className='border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-slate-600 text-white  transition-all ml-14 mr-14'>
+        <div>
+          <p className='font-bold'>CHANDRA SUDDHI</p>
+          {/*  */}
+          {panjiData.length > 0 && Object.entries(panjiData[0]["CHANDRA SUDDHI"])?.map(([key, value]) => {
+            return (
+              <div className='flex gap-2 items-center space-y-4 '>
+                <p className='w-[100px]'>{key}</p>
+                {value?.map((item, ind) => {
+                  return (
+                    <div>
+                      <img className='object-cover w-[80px] h-[80px] hover:cursor-pointer hover:scale-125 transition-all' src={IMAGE[item]} alt="" />
+                      <p className='text-center'>{item}</p>
+                    </div>
+
+                  )
+                })}
+              </div>)
+
+          })}
+        </div>
+
+        <div>
+          <p className='font-bold mt-2'>GHATA CHANDRA</p>
+          {panjiData.length > 0 && Object.entries(panjiData[0]["GHATA CHANDRA"])?.map(([key, value]) => {
+            return (
+              <div className='flex gap-2 items-center space-y-4'>
+                <p className='w-[100px]'>{key}</p>
+                {value?.map((item, ind) => {
+                  return (
+                    <div>
+                      <img className='object-cover w-[80px] h-[80px] hover:cursor-pointer hover:scale-125 transition-all' src={IMAGE[item]} alt="" />
+                      <p className='text-center'>{item}</p>
+                    </div>
+
+                  )
+                })}
+              </div>)
+
+          })}
+        </div>
+      </div>}
+
+      {panjiData.length > 0 && <MainSection />}
+
     </div>
   )
 }

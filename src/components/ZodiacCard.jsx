@@ -26,13 +26,7 @@ function ZodiacCard({ name, date, description, image, CS, GC, altname }) {
                     <h2 className="text-2xl font-semibold">{name}</h2>
                     <p className="text-gray-600 ">({altname})</p>
                     <p className="text-gray-700 mt-2">{description}</p>
-                    <div className='mt-1'>
-                        <p className=" font-bold text-gray-500">Chandra Suddhi</p>
-                        <p className='text-gray-500'>({CS})</p>
-
-                        <p className=" font-bold text-gray-500">Ghata Chandra</p>
-                        <p className='text-gray-500'>({GC})</p>
-                    </div>
+                    
 
                 </div>
 
@@ -41,13 +35,7 @@ function ZodiacCard({ name, date, description, image, CS, GC, altname }) {
                         <ArrowBackIcon sx={{ height: 25, width: 25 }} />
                     </IconButton>
 
-                    <div>
-                        <p className="text-lg font-bold">Chandra Suddhi</p>
-                        <p>{CS}</p>
-
-                        <p className="text-lg font-bold mt-4">Ghata Chandra</p>
-                        <p>{GC}</p>
-                    </div>
+                    
                     <Button size='small' color='warning' variant='contained' sx={{ color: "white", width: "50%", marginX: "auto", p: 1, marginBottom: 1 }}>View more</Button>
                 </div>
             </div>

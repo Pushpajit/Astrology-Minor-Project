@@ -138,9 +138,9 @@ function MainSection({data}) {
 
   // console.log(data['CHANDRA SUDDHI']);
   return (
-    <main>
+    <main className='mt-8'>
 
-      <div className='flex flex-wrap justify-evenly'>
+      <div className='flex flex-wrap justify-evenly border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-slate-600 text-white  transition-all ml-14 mr-14'>
 
         {zodiacSigns.map((sign, index) => (
           <ZodiacCard key={index} {...sign} />

@@ -29,10 +29,10 @@ function App() {
           <LeftSideBar setValue={setValue} setTime={setTime} />
 
           <div>
-            <div className="w-full h-fit bg-slate-600/50 border-[2px] border-dashed rounded-md">
+            <div className="w-full h-fit bg-slate-600/50  rounded-md">
               <Panchang date={value} time={time} setZodiacData={setZodiacData}/>
             </div>
-              <MainSection value={value} time={time} data={zodiacData ? zodiacData[0] : null}/>
+              {/* <MainSection value={value} time={time} data={zodiacData ? zodiacData[0] : null}/> */}
           </div>
         </div>
       </ThemeProvider>
