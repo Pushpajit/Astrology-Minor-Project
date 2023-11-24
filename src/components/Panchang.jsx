@@ -19,7 +19,7 @@ import Sagittarius from '../assets/xsagittarius_dhanu.png';
 import Scorpio from '../assets/xscorpio_vrishchika.png';
 import Taurus from '../assets/xtaurus_vrishabha.png';
 import Virgo from '../assets/xvirgo_kanya.png';
-import BGIMG from '../assets/bgpanchang.jpg';
+import BGIMG from '../assets/bg4.jpg';
 import MainSection from './MainSection';
 
 const IMAGE = {
@@ -383,3 +383,16 @@ function Panchang(props) {
 }
 
 export default Panchang
+
+
+
+
+
+
+
+
+
+
+
+
+
