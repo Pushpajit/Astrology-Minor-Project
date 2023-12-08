@@ -77,7 +77,7 @@ function Panchang(props) {
       // console.log(formatDate(date));
       try {
         setIsLoading(true);
-        const response = await fetch(`http://localhost:5000/api/panjiData?ENG_DATE=${formatDate(date)}`); // Replace with your API endpoint
+        const response = await fetch(`https://online-panchang.onrender.com/api/panjiData?ENG_DATE=${formatDate(date)}`); // Replace with your API endpoint
         if (!response.ok) {
           throw new Error('Network response was not ok.');
         }
@@ -142,12 +142,12 @@ function Panchang(props) {
   // *****************************Handlers End****************************//
 
   return (
-    <div style={{ backgroundImage: `url(${BGIMG})`, backgroundSize: 'cover',  backgroundAttachment: 'fixed'}}>
+    <div className='mr-0' style={{ backgroundImage: `url(${BGIMG})`, backgroundSize: 'cover',  backgroundAttachment: 'fixed'}}>
 
-      <div className='p-5 w-full '  >
+      <div className='p-5 w-full'  >
 
         {/* Search Box */}
-        <div className='float-right bg-slate-500 rounded-md border border-white'>
+        <div className='float-left bg-slate-500 rounded-md border border-white'>
           <div style={{ width: 350, display: 'flex', alignItems: 'center', padding: '5px' }}>
             <SearchIcon style={{ marginRight: '5px', color: "whitesmoke" }} />
             <InputBase
@@ -161,8 +161,8 @@ function Panchang(props) {
         </div>
 
         {/* Headline */}
-        <div className="mt-4 bg-transparent min-w-[75vw] min-h-[100vh] py-8 ">
-          <div className="flex flex-col justify-center items-center">
+        <div className="mt-4 bg-transparent min-w-full w-full min-h-[100vh] py-8 ">
+          <div className="flex flex-col items-center">
             <h1 className="text-4xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-br from-[#71c3f7] to-[#f6f6f6]">Panchang for {date.toDateString()}</h1>
 
             {/* If there is no data for that perticular date */}
@@ -175,7 +175,7 @@ function Panchang(props) {
             </div>}
 
             {/* If data is available for that perticular date */}
-            <div className="flex flex-wrap justify-evenly gap-5 ">
+            <div className="flex flex-wrap justify-evenly xl:justify-center gap-5 w-full max-w-screen-xl">
               {entries && entries.map((item, ind) => (
                 (item[0] !== "YOGINI" &&
                   item[0] !== "CHANDRA SUDDHI" &&
@@ -186,7 +186,7 @@ function Panchang(props) {
                   item[0] !== "_id" &&
 
                 (item[0].toLowerCase().includes(searchQuery.toLowerCase()) &&
-                  <div key={ind} className="border border-slate-300 p-3 w-[350px] rounded-md hover:border-dashed hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
+                  <div key={ind} className="border border-slate-300 p-3 sm:w-[350px] w-full rounded-md hover:border-dashed hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
                     <p className="font-bold">{item[0]}</p>
                     <p>{item[1]}</p>
                   </div>)
@@ -197,7 +197,7 @@ function Panchang(props) {
 
 
 
-
+            {/* Auspecious and Inauspecious Popover */}
             <Popover
               id={id}
               open={open}
@@ -226,18 +226,18 @@ function Panchang(props) {
         </div>
 
         {/* Yogini and TARA suddhi */}
-        <div className='flex gap-10 items-center  mb-8 ml-14 mr-14 '>
+        <div className='flex gap-10 items-center mb-8 xl:ml-14 xl:mr-14 '>
 
           {entries.length > 0 && "YOGINI TARA SUDDHI".toLowerCase().includes(searchQuery.toLowerCase()) &&
 
             <div className="border hover:border-dashed border-slate-300 p-1 mt-2 w-full rounded-md hover:cursor-pointer bg-[#1B2845] text-white">
-              <div className='p-2 flex  gap-5 justify-evenly'>
+              <div className='p-2 flex gap-5 justify-evenly'>
 
                 <div className='text-center'>
                   <p className="font-bold mb-2">Yogini</p>
 
-                  <div className="overflow-x-auto">
-                    <table className="w-[580px]  table-auto border border-gray-200 ">
+                  <div className="overflow-x-auto min-w-full overflow-hidden">
+                    <table className="w-full xl:w-[580px]  table-auto border border-gray-200 ">
                       <thead>
 
                         <tr>
@@ -266,7 +266,7 @@ function Panchang(props) {
                 <div className='text-center'>
                   <p className="font-bold mb-2">Tara Suddhi</p>
                   <div className="overflow-x-auto ">
-                    <table className="w-[580px] table-auto border border-gray-200 ">
+                    <table className="w-full xl:w-[580px] table-auto border border-gray-200 ">
                       <thead>
 
                         <tr>
@@ -328,7 +328,7 @@ function Panchang(props) {
 
         </div>
         {/* Table */}
-        {panjiData.length > 0 && <div className='border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all ml-14 mr-14'>
+        {panjiData.length > 0 && <div className=' border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all ml-14 mr-14'>
           <div>
             <p className='font-bold'>CHANDRA SUDDHI</p>
             {/*  */}

@@ -28,8 +28,8 @@ function App() {
 
           <LeftSideBar setValue={setValue} setTime={setTime} />
 
-          <div>
-            <div className="w-full h-fit bg-slate-600/50  rounded-md">
+          <div className="flex-grow flex-3">
+            <div className="w-full h-fit bg-slate-600/50  rounded-md ">
               <Panchang date={value} time={time} setZodiacData={setZodiacData}/>
             </div>
               {/* <MainSection value={value} time={time} data={zodiacData ? zodiacData[0] : null}/> */}

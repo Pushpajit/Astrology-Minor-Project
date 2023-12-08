@@ -3,7 +3,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Box, Button } from '@mui/material';
-import { StaticTimePicker, TimeField } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 function LeftSideBar(props) {
@@ -19,16 +18,11 @@ function LeftSideBar(props) {
   // }
 
   return (
-    <section className='bg-slate-700 w-[400px] h-[100vh] sticky p-5 text-white left-0 top-4'>
+    <section className='bg-slate-700 hidden xl:block h-[100vh] sticky p-5 text-white left-0 top-4'>
       <Box>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar onChange={(newValue) => props.setValue(newValue)} defaultValue={dayjs(now.toLocaleDateString())} />
-          {/* <TimeField 
-          defaultValue={dayjs(now.toString())}
-          label={"Select Time"}
-          sx={{marginLeft: 5, marginBottom: 5}}
-          onChange={(newValue) => setValue(newValue)}
-          /> */}
+          
         </LocalizationProvider>
 
         {/* <Button color='secondary' onClick={handleState} variant='contained' sx={{ width: "100%" }}>prophecy</Button> */}
