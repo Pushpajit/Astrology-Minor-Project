@@ -1,4 +1,4 @@
-## Available Scripts
+## Available Scripts:
 
 In the project directory, you can run:
 
@@ -15,3 +15,5 @@ Github repo [panchangJS](https://github.com/schenna/panchangJS)
 * ALI JOUHAR S
 * PUSHPAJIT BISWAS
 * SMRITY VERMA
+
+* Under Guidance of Dr.Alekha Kumar Misra
