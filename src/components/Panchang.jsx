@@ -237,7 +237,8 @@ function Panchang(props) {
                   <p className="font-bold mb-2">Yogini</p>
 
                   <div className="overflow-x-auto min-w-full overflow-hidden">
-                    <table className="w-full xl:w-[580px]  table-auto border border-gray-200 ">
+                  <table className="w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] table-auto border border-gray-200 ">
+                    {/* <table className="w-full xl:w-[580px]  table-auto border border-gray-200 "> */}
                       <thead>
 
                         <tr>
@@ -266,7 +267,8 @@ function Panchang(props) {
                 <div className='text-center'>
                   <p className="font-bold mb-2">Tara Suddhi</p>
                   <div className="overflow-x-auto ">
-                    <table className="w-full xl:w-[580px] table-auto border border-gray-200 ">
+                    {/* <table className="w-full xl:w-[580px] table-auto border border-gray-200 "> */}
+                    <table className="w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] table-auto border border-gray-200 ">
                       <thead>
 
                         <tr>
