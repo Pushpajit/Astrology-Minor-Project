@@ -140,7 +140,7 @@ function MainSection({ data }) {
   return (
     <main className='mt-8'>
 
-      <div className='space-y-3 border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all ml-14 mr-14'>
+      <div className= ' w-full space-y-3 border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all mr-14'>
         <p className='title'>Details About Zodiac Sign</p>
         <div className='flex flex-wrap justify-evenly'>
           {zodiacSigns.map((sign, index) => (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './ZodiacCard.css'
 
-import { Button, Icon, IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 

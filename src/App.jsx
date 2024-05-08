@@ -7,26 +7,27 @@ import Panchang from "./components/Panchang";
 
 
 function App() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(new Date());
   const [time, setTime] = useState(null);
   const [zodiacData, setZodiacData] = useState(null);
 
-  const darkTheme = createTheme({
+  const lighTheme = createTheme({
     palette: {
-      mode: "dark",
+      mode: "light",
     },
   });
 
   // console.log(zodiacData[0]);
+  console.log(value);
 
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={lighTheme}>
         <Header />
 
         <div className="flex ">
 
-          <LeftSideBar setValue={setValue} setTime={setTime} />
+          <LeftSideBar date={value} setValue={setValue} setTime={setTime} />
 
           <div className="flex-grow flex-3">
             <div className="w-full h-fit bg-slate-600/50  rounded-md ">
