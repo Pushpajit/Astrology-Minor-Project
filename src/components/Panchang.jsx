@@ -156,6 +156,7 @@ function Panchang(props) {
               onKeyDown={handleKeyDown}
               value={searchQuery}
               inputProps={{ 'aria-label': 'search' }}
+              sx={{color: "white"}}
             />
           </div>
         </div>
@@ -166,7 +167,7 @@ function Panchang(props) {
             <h1 className="text-4xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-br from-[#71c3f7] to-[#f6f6f6]">Panchang for {date.toDateString()}</h1>
 
             {/* If there is no data for that perticular date */}
-            {entries.length === 0 && !isLoading && <p className='text-2xl mt-52 font-bold text-white opacity-90'>No Data Available 📪</p>}
+            {entries.length === 0 && !isLoading && <p className='text-2xl mt-52 font-bold text-white opacity-90'>No data is available for this date 📪</p>}
 
 
             {isLoading && <div>
@@ -175,7 +176,7 @@ function Panchang(props) {
             </div>}
 
             {/* If data is available for that perticular date */}
-            <div className="flex flex-wrap justify-evenly xl:justify-center gap-5 w-full max-w-screen-xl">
+            <div className="flex flex-wrap justify-between  gap-5 w-full">
               {entries && entries.map((item, ind) => (
                 (item[0] !== "YOGINI" &&
                   item[0] !== "CHANDRA SUDDHI" &&
@@ -186,7 +187,7 @@ function Panchang(props) {
                   item[0] !== "_id" &&
 
                 (item[0].toLowerCase().includes(searchQuery.toLowerCase()) &&
-                  <div key={ind} className="border border-slate-300 p-3 sm:w-[350px] w-full rounded-md hover:border-dashed hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
+                  <div key={ind} className="border border-slate-300 p-3 sm:w-[300px] w-full rounded-md hover:border-l-4 hover:border-r-cyan-400 hover:border-r-4 hover:border-l-cyan-400 hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
                     <p className="font-bold">{item[0]}</p>
                     <p>{item[1]}</p>
                   </div>)
@@ -226,18 +227,20 @@ function Panchang(props) {
         </div>
 
         {/* Yogini and TARA suddhi */}
-        <div className='flex gap-10 items-center mb-8 xl:ml-14 xl:mr-14 '>
+        <div className='w-full flex gap-10 items-center mb-8  '>
 
           {entries.length > 0 && "YOGINI TARA SUDDHI".toLowerCase().includes(searchQuery.toLowerCase()) &&
 
             <div className="border hover:border-dashed border-slate-300 p-1 mt-2 w-full rounded-md hover:cursor-pointer bg-[#1B2845] text-white">
-              <div className='p-2 flex gap-5 justify-evenly'>
+              <div className='p-2 flex justify-between items-center' >
 
+                {/* Yogini */}
                 <div className='text-center'>
                   <p className="font-bold mb-2">Yogini</p>
 
                   <div className="overflow-x-auto min-w-full overflow-hidden">
-                  <table className="w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] table-auto border border-gray-200 ">
+                    {/* PREV VALUE [COPY THIS IF UI BROKES] : sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] */}
+                  <table className="w-full table-auto border border-gray-200 ">
                     {/* <table className="w-full xl:w-[580px]  table-auto border border-gray-200 "> */}
                       <thead>
 
@@ -267,8 +270,8 @@ function Panchang(props) {
                 <div className='text-center'>
                   <p className="font-bold mb-2">Tara Suddhi</p>
                   <div className="overflow-x-auto ">
-                    {/* <table className="w-full xl:w-[580px] table-auto border border-gray-200 "> */}
-                    <table className="w-full sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] table-auto border border-gray-200 ">
+                    {/*PREV VALUE [COPY THIS IF UI BROKES] : sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] */}
+                    <table className="w-full  table-auto border border-gray-200 ">
                       <thead>
 
                         <tr>
@@ -330,7 +333,7 @@ function Panchang(props) {
 
         </div>
         {/* Table */}
-        {panjiData.length > 0 && <div className=' border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all ml-14 mr-14'>
+        {panjiData.length > 0 && <div className='w-full border mb-8 border-slate-300 p-3 rounded-md hover:border-dashed hover:cursor-pointer bg-[#1B2845] text-white  transition-all  mr-14'>
           <div>
             <p className='font-bold'>CHANDRA SUDDHI</p>
             {/*  */}
