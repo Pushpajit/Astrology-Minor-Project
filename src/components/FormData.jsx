@@ -4,11 +4,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { ScrollShadow } from "@nextui-org/react";
-import { Divider, Paper, TextField } from '@mui/material';
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import DelIcon from '@mui/icons-material/Delete';
-import PeriodSelectionModal from './PeriodSelectionModal'; 
+import { Paper, TextField } from '@mui/material';
+
+
 import ChandraSuddhiComponent from './ChandraSuddhiComponent';
 import GhatachandraComponent from './GhatachandraComponent';
 import { useState } from 'react';
@@ -19,10 +17,10 @@ import InauspiciousTime from './InauspiciousTIme';
 
 const style = {
     position: 'absolute',
-    top: '40%',
+    top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 850,
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 1,
@@ -51,7 +49,7 @@ export default function FormData({ open, setOpen, date }) {
 
     //chndrasaddha
 
-    
+
 
 
 
@@ -76,7 +74,7 @@ export default function FormData({ open, setOpen, date }) {
                 <Fade in={open}>
                     <Box sx={style}>
                         <p className='text-center text-lg font-bold text-slate-700'>Data For {date?.toDateString() || new Date().toDateString()}</p>
-                        <ScrollShadow size={100} className="w-full h-[400px] overflow-y-scroll space-y-3">
+                        <ScrollShadow size={100} className="w-full h-[650px] overflow-y-scroll space-y-3">
 
                             <p className='mb-1 font-semibold text-slate-800'>MONTH AND DAY:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
@@ -135,7 +133,7 @@ export default function FormData({ open, setOpen, date }) {
                                 <TextField id="standard-basic" label="English Chandra Raasi Period" size='small' variant="standard" sx={{ marginBottom: 2, width: "50%" }} />
 
                             </Paper>
-                            
+
                             <p className='mb-1 font-semibold text-slate-800'>PUSKAR:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
@@ -157,38 +155,38 @@ export default function FormData({ open, setOpen, date }) {
                             <p className='mb-1 font-semibold text-slate-800'>YOGINI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <Yogini/>
+                                <Yogini />
                             </Paper>
 
                             <p className='mb-1 font-semibold text-slate-800'>CHANDRA SUDDHI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                          <ChandraSuddhiComponent/>
+                                <ChandraSuddhiComponent />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>GHATA CHANDRA:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                          <GhatachandraComponent/>
+                                <GhatachandraComponent />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>TARA SUDHI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                          <Tarasudhiomponent/>
+                                <Tarasudhiomponent />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>AUSPICIOUS TIME:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                              <AuspiciousTime/>
+                                <AuspiciousTime />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>INAUSPICIOUS TIME:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                              <InauspiciousTime/>
+                                <InauspiciousTime />
                             </Paper>
-                          
+
                         </ScrollShadow>
 
-                    </Box>      
+                    </Box>
                 </Fade>
             </Modal>
         </div>
