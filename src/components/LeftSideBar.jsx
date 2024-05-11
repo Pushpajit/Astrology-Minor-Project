@@ -8,13 +8,13 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 import dayjs from 'dayjs';
 import FormData from './FormData';
+import ContactUs from './ContactUs';
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
-
 
 function LeftSideBar(props) {
   const [valueDate, setValueDate] = useState(new Date());
@@ -28,10 +28,15 @@ function LeftSideBar(props) {
   }, [props.date])
 
 
-
   const now = new Date();
 
   const [open, setOpen] = React.useState(false);
+  const [openContactForm, setOpenContactForm] = useState(false);
+
+  // const toggleContactForm = () => {
+  //   setOpenContactForm(prevState => !prevState);
+  // };
+
   // console.log(props.date['$d'].toLocaleDateString());
 
 
@@ -48,14 +53,20 @@ function LeftSideBar(props) {
         <Button onClick={() => setOpen(true)} variant='contained' startIcon={<AddIcon />} color='success' sx={{ width: "100%", color: "whitesmoke" }}>
           Add data
         </Button>
-        <Button  variant='contained' startIcon={<MailOutlineIcon />} color='primary' sx={{ width: "100%", color: "whitesmoke",marginTop:"10px" }}>
+
+        <Button onClick={() =>setOpenContactForm(true)}variant='contained' startIcon={<MailOutlineIcon />} color='primary' sx={{ width: "100%", color: "whitesmoke",marginTop:"10px" }}>
           Contact Admin
         </Button>
 
         <FormData open={open} setOpen={setOpen} date={props.date['$d']} />
+        
+        <ContactUs open={openContactForm} setOpen={setOpenContactForm} />
+
       </Box>
     </section>
   )
 }
 
-export default LeftSideBar
+export default LeftSideBar;
+
+
