@@ -17,8 +17,15 @@ const InauspiciousTime = () => {
     };
 
     const handleAddinauspicious = () => {
-        setinauspiciousList([...inauspiciousList, { ...newinauspicious }]);
+        
+        if(newinauspicious.period.trim() !== ''){
+
+          setinauspiciousList([...inauspiciousList, { ...newinauspicious }]);
         setNewinauspicious({  period: '' });
+        }
+        else {
+          alert('Please add  period');
+        }
     };
 
     const handleDeleteinauspicious = (index) => {
