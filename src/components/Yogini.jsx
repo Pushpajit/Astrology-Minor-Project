@@ -22,6 +22,9 @@ const Yogini = () => {
       setYoginiList([...yoginiList, { ...newYogini }]);
       setNewYogini({ direction: '', period: '' });
     }
+    else {
+      alert('Please select period and signs.');
+    }
   };
 
   const handleDeleteYogini = (index) => {
