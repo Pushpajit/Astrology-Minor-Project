@@ -97,7 +97,7 @@ export default function FormData({ open, setOpen, date }) {
 
                             <p className='mb-1 font-semibold text-slate-800'>SUNRISE AND SUNSET:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%" }}>
-                                <div className='flex gap-11 mb-3'>
+                                <div className='flex gap-16 mb-3'>
 
                                     <div className='flex gap-2 items-center'>
                                         <p>Sunrise: </p>
@@ -114,12 +114,12 @@ export default function FormData({ open, setOpen, date }) {
 
                                 <div className='flex gap-5 mb-3'>
                                     <div className='flex gap-2 items-center'>
-                                        <p>Eng Sunrise: </p>
+                                        <p>English Sunrise: </p>
                                         <TimePickerComponenet />
                                     </div>
 
                                     <div className='flex gap-2 items-center'>
-                                        <p>Eng Sunset: </p>
+                                        <p>English Sunset: </p>
                                         <TimePickerComponenet />
                                     </div>
 

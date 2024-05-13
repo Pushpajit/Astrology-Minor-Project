@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-const PeriodSelectionModal = ({ onClose, onSubmit ,firstValue}) => {
+const PeriodSelectionModal = ({ onClose, onSubmit, firstValue }) => {
   const [period, setPeriod] = useState('');
   const [selectedSigns, setSelectedSigns] = useState([]);
   const bottomRef = useRef(null);
@@ -37,7 +37,7 @@ const PeriodSelectionModal = ({ onClose, onSubmit ,firstValue}) => {
     }
   };
 
-  
+
 
 
   return (
@@ -46,33 +46,49 @@ const PeriodSelectionModal = ({ onClose, onSubmit ,firstValue}) => {
         <span className="close" onClick={onClose}>&times;</span>
         <h2>Select Period and Zodiac Signs</h2>
         <div>
-          <input
+          {/* <input
             type="text"
             placeholder="Period"
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
             style={{width:"50%",border:"2px solid black",borderRadius:"10px"}}
+          /> */}
+          <TextField
+            placeholder="Period"
+            value={period}
+            onChange={(e) => setPeriod(e.target.value)}
+            size='small'
+            variant='standard'
           />
         </div>
-        <div style={{display:"flex",width:"100%",flexWrap:"wrap",gap:"2px",justifyContent:"space-between"}}>
+        <div style={{ display: "flex", width: "100%", flexWrap: "wrap", gap: "2px", justifyContent: "space-between" }}>
           {[...Array(firstValue)].map((_, i) => (
-            <div style={{display:"flex",width:"30%"}}>
-            <label key={i + 1}>
-              <p>{i + 1} {firstValue === 12 ? `${signs[i]}` : `${stars[i]}`} </p>
-              <input
-                type="checkbox"
-                value={i + 1}
-                checked={selectedSigns.includes(i + 1)}
-                onChange={() => handleSignToggle(i + 1)}
-              />
-            </label>
+            <div style={{ display: "flex", width: "30%" }}>
+              {/* <label key={i + 1}>
+                <p>{i + 1} {firstValue === 12 ? `${signs[i]}` : `${stars[i]}`} </p>
+                <input
+                  type="checkbox"
+                  value={i + 1}
+                  checked={selectedSigns.includes(i + 1)}
+                  onChange={() => handleSignToggle(i + 1)}
+                />
+              </label> */}
+              <FormGroup>
+                <FormControlLabel
+                  value={i + 1}
+                  checked={selectedSigns.includes(i + 1)}
+                  onChange={() => handleSignToggle(i + 1)}
+                  control={<Checkbox />}
+                  label={`${i + 1} ${firstValue === 12 ? signs[i] : stars[i]}`}
+                />
+              </FormGroup>
             </div>
           ))}
         </div>
         {/* <button onClick={handleSubmit}>Submit</button> */}
         <Button onClick={handleSubmit} variant='contained' startIcon={<AddIcon />} color='success' sx={{ width: "100%", color: "whitesmoke", margin: "6px" }}>
-                                       Submit
-                                    </Button>
+          Submit
+        </Button>
         <div ref={bottomRef}></div>
       </div>
     </div>

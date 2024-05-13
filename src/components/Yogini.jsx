@@ -68,7 +68,7 @@ const Yogini = () => {
           
           <Button onClick={() => { handleAddYogini(); handleModalClose(); }}
             size='small'
-            variant='contained' startIcon={<AddIcon />} color='success' >
+            variant='contained' startIcon={<AddIcon />} color='primary' >
             Add
           </Button>
 
