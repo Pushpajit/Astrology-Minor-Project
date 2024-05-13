@@ -4,7 +4,7 @@ import { Button, IconButton } from '@mui/material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import AdminLoginModal from './AdminLoginModal';
 
-function Header() {
+function Header({ setFulltrigger }) {
   const [open, setOpen] = useState(false);
   const [render, setRender] = useState(false);
   const showModal = () => {
@@ -39,12 +39,12 @@ function Header() {
 
 
           {JSON.parse(localStorage.getItem('token')) ?
-            <Button onClick={() => {localStorage.removeItem('token'); setRender(prev => !prev);}} variant='contained' size='small' color='error' startIcon={< PersonPinIcon />} sx={{ color: 'white' }}>Logout</Button>
+            <Button onClick={() => { localStorage.removeItem('token'); setRender(prev => !prev); setFulltrigger(prev => !prev); }} variant='contained' size='small' color='error' startIcon={< PersonPinIcon />} sx={{ color: 'white' }}>Logout</Button>
             :
             <Button onClick={showModal} variant='contained' size='small' startIcon={< PersonPinIcon />} sx={{ color: 'white' }}>Admin Login</Button>
           }
 
-          <AdminLoginModal open={open} setOpen={setOpen} setRender={setRender} />
+          <AdminLoginModal open={open} setOpen={setOpen} setRender={setRender} setFulltrigger={setFulltrigger}/>
         </div>
       </div>
     </nav>

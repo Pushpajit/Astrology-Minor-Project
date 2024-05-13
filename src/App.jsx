@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import LeftSideBar from "./components/LeftSideBar";
 import MainSection from "./components/MainSection";
@@ -10,6 +10,7 @@ function App() {
   const [value, setValue] = useState(new Date());
   const [time, setTime] = useState(null);
   const [zodiacData, setZodiacData] = useState(null);
+  const [fulltrigger, setFulltrigger] = useState(false);
 
   
 
@@ -20,16 +21,20 @@ function App() {
   });
 
   // console.log(zodiacData[0]);
-  console.log(value);
+  // console.log(value);
+
+  useEffect(() => {
+
+  }, [fulltrigger]);
 
   return (
     <>
       <ThemeProvider theme={lighTheme}>
-        <Header />
+        <Header setFulltrigger={setFulltrigger}/>
 
         <div className="flex ">
 
-          <LeftSideBar date={value} setValue={setValue} setTime={setTime} />
+          <LeftSideBar date={value} setValue={setValue} setTime={setTime} fulltrigger={fulltrigger}/>
 
           <div className="flex-grow flex-3">
             <div className="w-full h-fit bg-slate-600/50  rounded-md ">

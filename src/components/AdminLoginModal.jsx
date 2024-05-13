@@ -3,7 +3,7 @@ import { Modal, Button, Checkbox, Form, Input } from 'antd';
 
 async function signin(data) {
     const URL = `https://online-panchang.onrender.com/api/signin`;
-    console.log(data);
+    // console.log(data);
 
     const res = await fetch(URL, {
         method: 'POST',
@@ -24,14 +24,14 @@ async function signin(data) {
 
 }
 
-function AdminLoginModal({ open, setOpen, setRender }) {
+function AdminLoginModal({ open, setOpen, setRender, setFulltrigger }) {
 
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [form] = Form.useForm();
 
-    console.log(username, password);
+    // console.log(username, password);
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -45,6 +45,7 @@ function AdminLoginModal({ open, setOpen, setRender }) {
         const res = await signin({ username, password });
         
         setRender(prev => !prev);
+        setFulltrigger(prev => !prev);
         setOpen(false);
         setConfirmLoading(false);
         handleCancel();

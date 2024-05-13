@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
+// import Modal from '@mui/material/Modal';
+import { Button, Modal } from 'antd';
 import Fade from '@mui/material/Fade';
 import { ScrollShadow } from "@nextui-org/react";
 import { Paper, TextField } from '@mui/material';
@@ -50,18 +50,11 @@ export default function FormData({ open, setOpen, date }) {
         setYoginiList(updatedList);
     };
 
-    //chndrasaddha
 
-
-
-
-
-
-    // console.log(typeof(date));
 
     return (
         <div>
-            <Modal
+            {/* <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
@@ -73,6 +66,18 @@ export default function FormData({ open, setOpen, date }) {
                         timeout: 500,
                     },
                 }}
+            > */}
+            <Modal
+                open={open}
+                onCancel={handleClose}
+                cancelButtonProps={{
+                    hidden: true
+                }}
+                okButtonProps={{
+                    hidden: true
+                }}
+                closeIcon={false}
+                centered
             >
                 <Fade in={open}>
                     <Box sx={style}>
@@ -89,30 +94,35 @@ export default function FormData({ open, setOpen, date }) {
                                 <TextField id="standard-basic" label="Day of Solar Month" size='small' variant="standard" sx={{ marginBottom: 2, width: "50%" }} />
 
                             </Paper>
+
                             <p className='mb-1 font-semibold text-slate-800'>SUNRISE AND SUNSET:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%" }}>
-                                <div className='flex gap-2'>
+                                <div className='flex gap-11 mb-3'>
 
-                                    {/* <TextField id="standard-basic" label="Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <TimeField variant='standard' label="Sunrise" format="HH:mm:ss" />
-                                    </LocalizationProvider>
+                                    <div className='flex gap-2 items-center'>
+                                        <p>Sunrise: </p>
+                                        <TimePickerComponenet />
+                                    </div>
 
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <TimeField variant='standard' label="Sunset" format="HH:mm:ss" />
-                                    </LocalizationProvider>
+                                    <div className='flex gap-2 items-center'>
+                                        <p>Sunset: </p>
+                                        <TimePickerComponenet />
+                                    </div>
 
-                                    {/* <TextField id="standard-basic" label="Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
                                 </div>
-                                <div className='flex gap-2'>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <TimeField variant='standard' label="Eng Sunrise" format="HH:mm:ss"/>
-                                    </LocalizationProvider>
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <TimeField variant='standard' label="Eng Sunset" format="HH:mm:ss"/>
-                                    </LocalizationProvider>
-                                    {/* <TextField id="standard-basic" label="Eng Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} />
-                                    <TextField id="standard-basic" label="Eng Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
+
+
+                                <div className='flex gap-5 mb-3'>
+                                    <div className='flex gap-2 items-center'>
+                                        <p>Eng Sunrise: </p>
+                                        <TimePickerComponenet />
+                                    </div>
+
+                                    <div className='flex gap-2 items-center'>
+                                        <p>Eng Sunset: </p>
+                                        <TimePickerComponenet />
+                                    </div>
+
                                 </div>
 
                                 <div className='flex gap-2'>
@@ -209,6 +219,7 @@ export default function FormData({ open, setOpen, date }) {
                     </Box>
                 </Fade>
             </Modal>
+            {/* </Modal> */}
         </div>
     );
 }

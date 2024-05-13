@@ -18,15 +18,14 @@ const darkTheme = createTheme({
 
 function LeftSideBar(props) {
   const [valueDate, setValueDate] = useState(new Date());
-  const [time, setTime] = useState();
-  const [checkAdmin, setCheckAdmin] = useState(false);
+  
 
   useEffect(() => {
     if (props.date)
       setValueDate(new Date(props.date['$d']));
     else
       setValueDate(new Date());
-  }, [props.date])
+  }, [props.date, props.fulltrigger])
 
 
   const now = new Date();
@@ -34,11 +33,6 @@ function LeftSideBar(props) {
   const [open, setOpen] = React.useState(false);
   const [openContactForm, setOpenContactForm] = useState(false);
 
-  // const toggleContactForm = () => {
-  //   setOpenContactForm(prevState => !prevState);
-  // };
-
-  // console.log(props.date['$d'].toLocaleDateString());
 
 
   return (
