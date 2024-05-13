@@ -15,6 +15,8 @@ import Tarasudhiomponent from './Tarasudhicomponent';
 import AuspiciousTime from './AuspiciousTime';
 import InauspiciousTime from './InauspiciousTIme';
 import TimePickerComponenet from './TimePicker';
+import { LocalizationProvider, TimeField } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const style = {
     position: 'absolute',
@@ -74,7 +76,6 @@ export default function FormData({ open, setOpen, date }) {
             >
                 <Fade in={open}>
                     <Box sx={style}>
-                        <input type="time" name="" id="" />
 
 
                         <p className='text-center text-lg font-bold text-slate-700'>Data For {date?.toDateString() || new Date().toDateString()}</p>
@@ -92,19 +93,34 @@ export default function FormData({ open, setOpen, date }) {
                             <Paper elevation={2} sx={{ p: 1, width: "100%" }}>
                                 <div className='flex gap-2'>
 
-                                    <TextField id="standard-basic" label="Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} />
-                                    <TextField id="standard-basic" label="Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} />
+                                    {/* <TextField id="standard-basic" label="Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <TimeField variant='standard' label="Sunrise" format="HH:mm:ss" />
+                                    </LocalizationProvider>
+
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <TimeField variant='standard' label="Sunset" format="HH:mm:ss" />
+                                    </LocalizationProvider>
+
+                                    {/* <TextField id="standard-basic" label="Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
                                 </div>
                                 <div className='flex gap-2'>
-
-                                    <TextField id="standard-basic" label="Eng Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} />
-                                    <TextField id="standard-basic" label="Eng Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} />
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <TimeField variant='standard' label="Eng Sunrise" format="HH:mm:ss"/>
+                                    </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <TimeField variant='standard' label="Eng Sunset" format="HH:mm:ss"/>
+                                    </LocalizationProvider>
+                                    {/* <TextField id="standard-basic" label="Eng Sunrise" size='small' variant="standard" sx={{ marginBottom: 2 }} />
+                                    <TextField id="standard-basic" label="Eng Sunset" size='small' variant="standard" sx={{ marginBottom: 2 }} /> */}
                                 </div>
 
                                 <div className='flex gap-2'>
+
 
                                     <TextField id="standard-basic" label="Sunrise Lagna" size='small' variant="standard" sx={{ marginBottom: 2 }} />
                                     <TextField id="standard-basic" label="Sunset Lagna" size='small' variant="standard" sx={{ marginBottom: 2 }} />
+
                                 </div>
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>PAKSHA:</p>
