@@ -17,8 +17,15 @@ const AuspiciousTime = () => {
     };
 
     const handleAddauspicious = () => {
+      // Added validation
+      if(newauspicious.direction.trim() !== '' && newauspicious.period.trim() !== ''){
+
         setauspiciousList([...auspiciousList, { ...newauspicious }]);
         setNewauspicious({ direction: '', period: '' });
+      }
+      else {
+        alert('Please add type and period');
+      }
     };
 
     const handleDeleteauspicious = (index) => {
