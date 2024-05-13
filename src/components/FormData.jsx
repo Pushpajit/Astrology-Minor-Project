@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 // import Modal from '@mui/material/Modal';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import Fade from '@mui/material/Fade';
 import { ScrollShadow } from "@nextui-org/react";
-import { Paper, TextField } from '@mui/material';
+import { Button, Paper, TextField } from '@mui/material';
 
 
 import ChandraSuddhiComponent from './ChandraSuddhiComponent';
@@ -54,19 +54,6 @@ export default function FormData({ open, setOpen, date }) {
 
     return (
         <div>
-            {/* <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                slots={{ backdrop: Backdrop }}
-                slotProps={{
-                    backdrop: {
-                        timeout: 500,
-                    },
-                }}
-            > */}
             <Modal
                 open={open}
                 onCancel={handleClose}
@@ -215,6 +202,8 @@ export default function FormData({ open, setOpen, date }) {
                             </Paper>
 
                         </ScrollShadow>
+
+                        <Button variant='contained' sx={{ width: '100%', marginTop: 2 }}>SUBMIT FORM</Button>
 
                     </Box>
                 </Fade>
