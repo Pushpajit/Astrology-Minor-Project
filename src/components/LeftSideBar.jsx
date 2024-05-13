@@ -19,6 +19,7 @@ const darkTheme = createTheme({
 function LeftSideBar(props) {
   const [valueDate, setValueDate] = useState(new Date());
   const [time, setTime] = useState();
+  const [checkAdmin, setCheckAdmin] = useState(false);
 
   useEffect(() => {
     if (props.date)
@@ -43,23 +44,24 @@ function LeftSideBar(props) {
   return (
     <section className='bg-slate-700 hidden xl:block h-[100vh] sticky p-5 text-white left-0 top-4'>
 
-      <Box>
+      <Box sx={{position: 'relative'}}>
+
         <ThemeProvider theme={darkTheme}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar onChange={(newValue) => {props.setValue(newValue)}} defaultValue={dayjs(now.toLocaleDateString())} />
+            <DateCalendar onChange={(newValue) => { props.setValue(newValue) }} defaultValue={dayjs(now.toLocaleDateString())} />
           </LocalizationProvider>
         </ThemeProvider>
 
-        <Button onClick={() => setOpen(true)} variant='contained' startIcon={<AddIcon />} color='success' sx={{ width: "100%", color: "whitesmoke" }}>
+        {JSON.parse(localStorage.getItem('token')) && <Button onClick={() => setOpen(true)} variant='contained' startIcon={<AddIcon />} color='success' sx={{ width: "100%", color: "whitesmoke" }}>
           Add data
-        </Button>
+        </Button>}
 
-        <Button onClick={() =>setOpenContactForm(true)}variant='contained' startIcon={<MailOutlineIcon />} color='primary' sx={{ width: "100%", color: "whitesmoke",marginTop:"10px" }}>
+        <Button onClick={() => setOpenContactForm(true)} variant='contained' startIcon={<MailOutlineIcon />} color='primary' sx={{ width: "100%", color: "whitesmoke", marginTop: "10px" }}>
           Contact Admin
         </Button>
 
-        <FormData open={open} setOpen={setOpen} date={props.date['$d']} />
-        
+        <FormData  open={open} setOpen={setOpen} date={props.date['$d']} />
+
         <ContactUs open={openContactForm} setOpen={setOpenContactForm} />
 
       </Box>

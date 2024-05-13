@@ -14,6 +14,7 @@ import Yogini from './Yogini';
 import Tarasudhiomponent from './Tarasudhicomponent';
 import AuspiciousTime from './AuspiciousTime';
 import InauspiciousTime from './InauspiciousTIme';
+import TimePickerComponenet from './TimePicker';
 
 const style = {
     position: 'absolute',
@@ -73,6 +74,9 @@ export default function FormData({ open, setOpen, date }) {
             >
                 <Fade in={open}>
                     <Box sx={style}>
+                        <input type="time" name="" id="" />
+
+
                         <p className='text-center text-lg font-bold text-slate-700'>Data For {date?.toDateString() || new Date().toDateString()}</p>
                         <ScrollShadow size={100} className="w-full h-[650px] overflow-y-scroll space-y-3">
 

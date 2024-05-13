@@ -1,12 +1,37 @@
 import React, { useState } from 'react';
 import { Modal, Button, Checkbox, Form, Input } from 'antd';
 
-function AdminLoginModal({ open, setOpen }) {
+async function signin(data) {
+    const URL = `https://online-panchang.onrender.com/api/signin`;
+    console.log(data);
 
+    const res = await fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
 
+        body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+        alert("You're Now Admin");
+        const result = await res.json();
+        localStorage.setItem("token", JSON.stringify(result?.token));
+    } else {
+        alert('Something Went Wrong, Check your username or password');
+    }
+
+}
+
+function AdminLoginModal({ open, setOpen, setRender }) {
 
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [modalText, setModalText] = useState('Content of the modal');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [form] = Form.useForm();
+
+    console.log(username, password);
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -15,18 +40,35 @@ function AdminLoginModal({ open, setOpen }) {
         console.log('Failed:', errorInfo);
     };
 
-    const handleOk = () => {
-        
+    const handleOk = async () => {
         setConfirmLoading(true);
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
+        const res = await signin({ username, password });
+        
+        setRender(prev => !prev);
+        setOpen(false);
+        setConfirmLoading(false);
+        handleCancel();
     };
+
     const handleCancel = () => {
         console.log('Clicked cancel button');
+        form.setFieldsValue({
+            username: '',
+            password: ''
+        });
+        setUsername('');
+        setPassword('');
         setOpen(false);
     };
+
+    const onUsernameChange = (e) => {
+        setUsername(e.target.value);
+    };
+
+    const onPasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+
     return (
         <>
             {/* <Button type="primary" onClick={showModal}>
@@ -45,6 +87,7 @@ function AdminLoginModal({ open, setOpen }) {
                 <p className='text-center font-semibold text-lg mb-5'>Admin Login</p>
                 <Form
                     name="basic"
+                    form={form}
                     labelCol={{
                         span: 8,
                     }}
@@ -71,7 +114,7 @@ function AdminLoginModal({ open, setOpen }) {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input  onChange={onUsernameChange} />
                     </Form.Item>
 
                     <Form.Item
@@ -84,7 +127,7 @@ function AdminLoginModal({ open, setOpen }) {
                             },
                         ]}
                     >
-                        <Input.Password />
+                        <Input.Password content={password}  onChange={onPasswordChange} />
                     </Form.Item>
 
                     <Form.Item
@@ -104,9 +147,7 @@ function AdminLoginModal({ open, setOpen }) {
                             span: 16,
                         }}
                     >
-                        {/* <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button> */}
+
                     </Form.Item>
                 </Form>
             </Modal>

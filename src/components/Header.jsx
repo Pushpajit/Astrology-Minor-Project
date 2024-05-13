@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Button, IconButton } from '@mui/material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -6,9 +6,14 @@ import AdminLoginModal from './AdminLoginModal';
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const [render, setRender] = useState(false);
   const showModal = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+
+  }, [render])
 
   return (
     <nav className='bg-slate-800 min-w-full bg-opacity-20 backdrop-blur-lg text-white flex items-center content-center p-5 sticky top-0 z-50 gap-2 rounded-lg border border-white border-opacity-20'>
@@ -31,9 +36,15 @@ function Header() {
         <div className=''>
 
 
-          <Button onClick={showModal} variant='contained' size='small'  startIcon={< PersonPinIcon />} sx={{color: 'white'}}>Admin Login</Button>
 
-          <AdminLoginModal open={open} setOpen={setOpen} />
+
+          {JSON.parse(localStorage.getItem('token')) ?
+            <Button onClick={() => {localStorage.removeItem('token'); setRender(prev => !prev);}} variant='contained' size='small' color='error' startIcon={< PersonPinIcon />} sx={{ color: 'white' }}>Logout</Button>
+            :
+            <Button onClick={showModal} variant='contained' size='small' startIcon={< PersonPinIcon />} sx={{ color: 'white' }}>Admin Login</Button>
+          }
+
+          <AdminLoginModal open={open} setOpen={setOpen} setRender={setRender} />
         </div>
       </div>
     </nav>

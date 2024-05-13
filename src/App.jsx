@@ -11,6 +11,8 @@ function App() {
   const [time, setTime] = useState(null);
   const [zodiacData, setZodiacData] = useState(null);
 
+  
+
   const lighTheme = createTheme({
     palette: {
       mode: "light",
