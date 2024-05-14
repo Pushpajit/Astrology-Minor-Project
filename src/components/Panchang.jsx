@@ -39,9 +39,9 @@ const IMAGE = {
 
 
 const formatDate = (dateObj) => {
-  const day = String(dateObj.getDate()).padStart(2, '0');
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-  const year = String(dateObj.getFullYear()).slice(-2); // Extract last 2 digits of the year
+  const day = String(dateObj?.getDate())?.padStart(2, '0');
+  const month = String(dateObj?.getMonth() + 1)?.padStart(2, '0');
+  const year = String(dateObj?.getFullYear())?.slice(-2); // Extract last 2 digits of the year
 
   return `${day}/${month}/${year}`;
 };
@@ -74,7 +74,7 @@ function Panchang(props) {
     props.setZodiacData(null);
 
     const fetchData = async () => {
-      // console.log(formatDate(date));
+      console.log(formatDate(date));
       try {
         setIsLoading(true);
         const response = await fetch(`https://online-panchang.onrender.com/api/panjiData?ENG_DATE=${formatDate(date)}`); // Replace with your API endpoint
@@ -82,6 +82,7 @@ function Panchang(props) {
           throw new Error('Network response was not ok.');
         }
         const data = await response.json();
+        console.log(data);
 
         setPanjiData(data);
         props.setZodiacData(data);
@@ -142,7 +143,7 @@ function Panchang(props) {
   // *****************************Handlers End****************************//
 
   return (
-    <div className='mr-0' style={{ backgroundImage: `url(${BGIMG})`, backgroundSize: 'cover',  backgroundAttachment: 'fixed'}}>
+    <div className='mr-0' style={{ backgroundImage: `url(${BGIMG})`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
 
       <div className='p-5 w-full'  >
 
@@ -156,7 +157,7 @@ function Panchang(props) {
               onKeyDown={handleKeyDown}
               value={searchQuery}
               inputProps={{ 'aria-label': 'search' }}
-              sx={{color: "white"}}
+              sx={{ color: "white" }}
             />
           </div>
         </div>
@@ -181,10 +182,10 @@ function Panchang(props) {
                 (item[0] !== "YOGINI" &&
                   item[0] !== "CHANDRA SUDDHI" &&
                   item[0] !== "GHATA CHANDRA") &&
-                  item[0] !== "AUSPICIOUS TIME" &&
-                  item[0] !== "BARRED/INAUSPICIOUS TIME" &&
-                  item[0] !== "TARA SUDDHI" &&
-                  item[0] !== "_id" &&
+                item[0] !== "AUSPICIOUS TIME" &&
+                item[0] !== "BARRED/INAUSPICIOUS TIME" &&
+                item[0] !== "TARA SUDDHI" &&
+                item[0] !== "_id" &&
 
                 (item[0].toLowerCase().includes(searchQuery.toLowerCase()) &&
                   <div key={ind} className="border border-slate-300 p-3 sm:w-[300px] w-full rounded-md hover:border-l-4 hover:border-r-cyan-400 hover:border-r-4 hover:border-l-cyan-400 hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
@@ -240,8 +241,8 @@ function Panchang(props) {
 
                   <div className="overflow-x-auto min-w-full overflow-hidden">
                     {/* PREV VALUE [COPY THIS IF UI BROKES] : sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] */}
-                  <table className="w-full table-auto border border-gray-200 ">
-                    {/* <table className="w-full xl:w-[580px]  table-auto border border-gray-200 "> */}
+                    <table className="w-full table-auto border border-gray-200 ">
+                      {/* <table className="w-full xl:w-[580px]  table-auto border border-gray-200 "> */}
                       <thead>
 
                         <tr>
@@ -366,7 +367,7 @@ function Panchang(props) {
                   {value?.map((item, ind) => {
                     return (
                       <div>
-                        <div className='flex justify-center'> 
+                        <div className='flex justify-center'>
                           <img className='object-cover w-[70px] h-[70px] hover:cursor-pointer hover:scale-125 transition-all' src={IMAGE[item]} alt="" />
                         </div>
                         <p className='text-center'>{item}</p>
