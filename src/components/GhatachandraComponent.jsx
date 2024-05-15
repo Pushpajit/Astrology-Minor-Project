@@ -3,8 +3,9 @@ import PeriodSelectionModal from './PeriodSelectionModal'; // Import the modal c
 import { Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
+const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
 
-const GhatachandraComponent = () => {
+const GhatachandraComponent = ({ onChangeChandra }) => {
   const [ghatachandraList, setghatachandraList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -17,13 +18,24 @@ const GhatachandraComponent = () => {
   };
 
   const handleModalSubmit = ({ period, numbers }) => {
-    setghatachandraList([...ghatachandraList, { period, numbers }]);
+
+    const updatedList = [...ghatachandraList, { period, numbers }];
+    setghatachandraList(updatedList);
+
+    updatedList.map((chandra, index) => {
+      onChangeChandra(prev => ({ ...prev, 'GHATA CHANDRA': { ...prev['GHATA CHANDRA'], [`${chandra.period}`]: chandra.numbers.map(val => signs[val - 1]) } }))
+
+    });
   };
 
   const handleDeleteghatachandra = (index) => {
     const updatedList = [...ghatachandraList];
     updatedList.splice(index, 1);
     setghatachandraList(updatedList);
+    updatedList.map((chandra, index) => {
+      onChangeChandra(prev => ({ ...prev, 'GHATA CHANDRA': { ...prev['GHATA CHANDRA'], [`${chandra.period}`]: chandra.numbers.map(val => signs[val - 1]) } }))
+
+    });
   };
 
   return (
@@ -33,7 +45,7 @@ const GhatachandraComponent = () => {
         <div key={index} style={{ display: "flex", gap: "6px", alignItems: 'center' }}>
           <p className='font-bold'>Period: <span className='font-normal'>{ghatachandra.period}</span></p>
           <p className='font-bold'>Numbers: <span className='font-normal'>{ghatachandra.numbers.join(', ')}</span></p>
-          
+
 
           <IconButton
             onClick={() => handleDeleteghatachandra(index)}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, IconButton, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
 
-const Yogini = ({ onYoginiChange }) => {
+const Yogini = ({ onYoginiChange, clear }) => {
   const [yoginiList, setYoginiList] = useState([]);
   const [newYogini, setNewYogini] = useState({ direction: '', period: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +15,10 @@ const Yogini = ({ onYoginiChange }) => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    setYoginiList([]);
+  }, [clear])
 
   const handleAddYogini = () => {
     // Added validation

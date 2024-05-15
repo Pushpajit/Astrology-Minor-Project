@@ -3,7 +3,7 @@ import { Button, IconButton, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-const InauspiciousTime = () => {
+const InauspiciousTime = ({onInausChange}) => {
   const [inauspiciousList, setinauspiciousList] = useState([]);
   const [newinauspicious, setNewinauspicious] = useState({ period: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,8 +19,11 @@ const InauspiciousTime = () => {
   const handleAddinauspicious = () => {
 
     if (newinauspicious.period.trim() !== '') {
-
-      setinauspiciousList([...inauspiciousList, { ...newinauspicious }]);
+      const updatedList = [...inauspiciousList, { ...newinauspicious }];
+      setinauspiciousList(updatedList);
+      const formattedList = updatedList.map(aus => `${aus.period}`);
+      onInausChange(prev => ({ ...prev, 'BARRED/INAUSPICIOUS TIME': [...formattedList] }));
+      
       setNewinauspicious({ period: '' });
     }
     else {
@@ -32,6 +35,8 @@ const InauspiciousTime = () => {
     const updatedList = [...inauspiciousList];
     updatedList.splice(index, 1);
     setinauspiciousList(updatedList);
+    const formattedList = updatedList.map(aus => `${aus.period}`);
+      onInausChange(prev => ({ ...prev, 'BARRED/INAUSPICIOUS TIME': [...formattedList] }));
   };
   return (
     <div>

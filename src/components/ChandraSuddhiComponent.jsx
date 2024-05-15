@@ -3,10 +3,13 @@ import PeriodSelectionModal from './PeriodSelectionModal'; // Import the modal c
 import { Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
+const signs = [
+  'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
 
-const ChandraSuddhiComponent = () => {
+const ChandraSuddhiComponent = ({ onChangeChandra }) => {
   const [chandraSuddhiList, setChandraSuddhiList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const handleAddChandraSuddhi = () => {
     setIsModalOpen(true);
@@ -17,13 +20,31 @@ const ChandraSuddhiComponent = () => {
   };
 
   const handleModalSubmit = ({ period, numbers }) => {
-    setChandraSuddhiList([...chandraSuddhiList, { period, numbers }]);
+    const updatedList = [...chandraSuddhiList, { period, numbers }];
+    setChandraSuddhiList(updatedList);
+
+    updatedList.map((chandra, index) => {
+      onChangeChandra(prev => ({ ...prev, 'CHANDRA SUDDHI': { ...prev['CHANDRA SUDDHI'], [`${chandra.period}`]: chandra.numbers.map(val => signs[val - 1]) } }))
+
+    });
+    console.log(updatedList);
+    // const updatedList = [...tarasudhiList, { period, numbers }];
+    // settarasudhiList(updatedList);
+    // console.log(tarasudhiList);
+    // const formattedList = updatedList.map((tarasudhi, index) => `${tara.numbers.join('/')} : ${tara.period}`);
+    // onChangeTara(prev => ({ ...prev, 'TARA SUDDHI': [...formattedList] }));
+
+
   };
 
   const handleDeleteChandraSuddhi = (index) => {
     const updatedList = [...chandraSuddhiList];
     updatedList.splice(index, 1);
     setChandraSuddhiList(updatedList);
+    updatedList.map((chandra, index) => {
+      onChangeChandra(prev => ({ ...prev, 'CHANDRA SUDDHI': { ...prev['CHANDRA SUDDHI'], [`${chandra.period}`]: chandra.numbers.map(val => signs[val - 1]) } }))
+
+    });
   };
 
   return (

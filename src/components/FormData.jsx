@@ -17,14 +17,9 @@ import InauspiciousTime from './InauspiciousTIme';
 import TimePickerComponent from './TimePickerComponent';
 
 
-const formatDate = (dateObj) => {
-    console.log(dateObj);
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const year = String(dateObj.getFullYear()).slice(-2); // Extract last 2 digits of the year
-
-    return `${day}/${month}/${year}`;
-};
+const days = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Saturday', 'Sunday'
+]
 
 async function createData(data) {
 
@@ -67,34 +62,10 @@ const style = {
 
 export default function FormData({ open, setOpen, date }) {
     const handleClose = () => setOpen(false);
-
-    // console.log(formatDate(date));
-
-    // const [lunarMonth, setLunarMonth] = useState('');
-    // const [solarMonth, setSolarMonth] = useState('');
-    // const [dayOfSolarMonth, setDayOfSolarMonth] = useState('');
-    // const [engSunrise, setEngSunrise] = useState('');
-    // const [engSunset, setEngSunset] = useState('');
-    // const [sunrise, setSunrise] = useState('');
-    // const [sunriseLagna, setSunriseLagna] = useState('');
-    // const [sunset, setSunset] = useState('');
-    // const [sunsetLagna, setSunsetLagna] = useState('');
-    // const [paksha, setPaksha] = useState('');
-    // const [tithi, setTithi] = useState('');
-    // const [thithiPeriod, setThithiPeriod] = useState('');
-    // const [thithiPeriodEnglish, setThithiPeriodEnglish] = useState('');
-    // const [nakshatra, setNakshatra] = useState('');
-    // const [nakshatraPeriod, setNakshatraPeriod] = useState('');
-    // const [nakshatraPeriodEnglish, setNakshatraPeriodEnglish] = useState('');
-    // const [chandraRaasi, setChandraRaasi] = useState('');
-    // const [chandraRaasiPeriod, setChandraRaasiPeriod] = useState('');
-    // const [chandraRaasiPeriodEnglish, setChandraRaasiPeriodEnglish] = useState('');
-    // const [puskar, setPuskar] = useState('');
-    // const [sraddha, setSraddha] = useState('');
-    // const [festivalOccasion, setFestivalOccasion] = useState('');
+    const [clearField, setClearField] = useState(false);
     const [data, setData] = useState({
-        'DATE (English)': '',
-        'DAY (English)': '',
+        'DATE (English)': 'tt',
+        'DAY (English)': 'tt',
         LUNAR_MONTH: '',
         SOLAR_MONTH: '',
         DAY_OF_SOLAR_MONTH: '',
@@ -129,9 +100,18 @@ export default function FormData({ open, setOpen, date }) {
 
     const handleFinalSubmit = async () => {
         // Create an object with the form values
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              if (data[key] === '') {
+                alert(`Please fill in the field: ${key}`);
+                return;
+              }
+            }
+          }
+          
         const formData = {
             'DATE (English)': `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getFullYear()).slice(-2)}`,
-            'DAY (English)': '',
+            'DAY (English)': `${days[date.getDay() - 1]}`,
             LUNAR_MONTH: data.LUNAR_MONTH,
             SOLAR_MONTH: data.SOLAR_MONTH,
             DAY_OF_SOLAR_MONTH: data.DAY_OF_SOLAR_MONTH,
@@ -163,12 +143,45 @@ export default function FormData({ open, setOpen, date }) {
             'CHANDRA_RAASI_PERIOD (English)': data['CHANDRA_RAASI_PERIOD (English)']
 
         };
-
-
         console.log(formData)
 
-        // const res = await createData(formData);
-        // handleClose();
+        const res = await createData(formData);
+
+        setClearField(prev => !prev);
+        setData({
+            'DATE (English)': '',
+            'DAY (English)': '',
+            LUNAR_MONTH: '',
+            SOLAR_MONTH: '',
+            DAY_OF_SOLAR_MONTH: '',
+            SUNRISE: '',
+            SUNSET: '',
+            ENG_SUNRISE: '',
+            ENG_SUNSET: '',
+            SUNRISE_LAGNA: '',
+            SUNSET_LAGNA: '',
+            PAKSHA: '',
+            TITHI: '',
+            THITHI_PERIOD: '',
+            'TITHI_PERIOD (English)': '',
+            NAKSHATRA: '',
+            NKTRA_PERIOD: '',
+            'NKTRA_PERIOD (English)': '',
+            CHANDRA_RAASI: '',
+            CHANDRA_RAASI_PERIOD: '',
+            'CHANDRA_RAASI_PERIOD (English)': '',
+            PUSKAR: '',
+            SRADDHA: '',
+            FESTIVAL_OCCASION: '',
+            YOGINI: [],
+            'CHANDRA SUDDHI': {},
+            'GHATA CHANDRA': {},
+            'AUSPICIOUS TIME': [],
+            'BARRED/INAUSPICIOUS TIME': [],
+            'TARA SUDDHI': [],
+            'CHANDRA_RAASI_PERIOD (English)': []
+        })
+        handleClose();
     };
 
 
@@ -231,7 +244,7 @@ export default function FormData({ open, setOpen, date }) {
                                 <div className='flex gap-11 mb-3'>
                                     <div className='flex gap-2 items-center'>
                                         <p>Sunrise: </p>
-                                        <TimePickerComponent defaultValue="05:34:46" onChange={(time, timeString) => {
+                                        <TimePickerComponent value={data['SUNRISE']} onChange={(time, timeString) => {
                                             setData(prev => {
                                                 return { ...prev, 'SUNRISE': timeString }
                                             })
@@ -445,33 +458,33 @@ export default function FormData({ open, setOpen, date }) {
                             <p className='mb-1 font-semibold text-slate-800'>YOGINI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <Yogini onYoginiChange={setData}/>
+                                <Yogini clear={clearField} onYoginiChange={setData} />
                             </Paper>
 
                             <p className='mb-1 font-semibold text-slate-800'>CHANDRA SUDDHI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <ChandraSuddhiComponent />
+                                <ChandraSuddhiComponent onChangeChandra={setData} />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>GHATA CHANDRA:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <GhatachandraComponent />
+                                <GhatachandraComponent onChangeChandra={setData} />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>TARA SUDHI:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <Tarasudhiomponent />
+                                <Tarasudhiomponent onChangeTara={setData} />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>AUSPICIOUS TIME:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <AuspiciousTime />
+                                <AuspiciousTime onAusChange={setData} />
                             </Paper>
                             <p className='mb-1 font-semibold text-slate-800'>INAUSPICIOUS TIME:</p>
                             <Paper elevation={2} sx={{ p: 1, width: "100%", display: 'flex', gap: 2 }}>
 
-                                <InauspiciousTime />
+                                <InauspiciousTime onInausChange={setData} />
                             </Paper>
 
                         </ScrollShadow>

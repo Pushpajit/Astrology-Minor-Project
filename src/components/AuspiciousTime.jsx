@@ -3,7 +3,8 @@ import { Button, IconButton, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-const AuspiciousTime = () => {
+
+const AuspiciousTime = ({onAusChange}) => {
   const [auspiciousList, setauspiciousList] = useState([]);
   const [newauspicious, setNewauspicious] = useState({ direction: '', period: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,10 @@ const AuspiciousTime = () => {
     // Added validation
     if (newauspicious.direction.trim() !== '' && newauspicious.period.trim() !== '') {
 
-      setauspiciousList([...auspiciousList, { ...newauspicious }]);
+      const updatedList = [...auspiciousList, { ...newauspicious }];
+      setauspiciousList(updatedList);
+      const formattedList = updatedList.map(aus => `${aus.direction}: ${aus.period}`);
+      onAusChange(prev => ({ ...prev, 'AUSPICIOUS TIME': [...formattedList] }));
       setNewauspicious({ direction: '', period: '' });
     }
     else {
@@ -32,6 +36,9 @@ const AuspiciousTime = () => {
     const updatedList = [...auspiciousList];
     updatedList.splice(index, 1);
     setauspiciousList(updatedList);
+    const formattedList = updatedList.map(aus => `${aus.direction}: ${aus.period}`);
+    onAusChange(prev => ({ ...prev, 'AUSPICIOUS TIME': [...formattedList] }));
+
   };
   return (
     <div>

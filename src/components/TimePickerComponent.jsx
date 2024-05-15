@@ -16,8 +16,8 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
-const TimePickerComponent = ({ defaultValue, onChange }) => (
-    <TimePicker  onChange={onChange} defaultValue={dayjs('00:00:00', 'HH:mm:ss')} />
+const TimePickerComponent = ({ value, onChange }) => (
+    <TimePicker onChange={onChange} />
 );
 
 export default TimePickerComponent;

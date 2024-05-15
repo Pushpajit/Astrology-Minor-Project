@@ -4,9 +4,11 @@ import { Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DelIcon from '@mui/icons-material/Delete';
 
-const Tarasudhiomponent = () => {
+const Tarasudhiomponent = ({ onChangeTara }) => {
   const [tarasudhiList, settarasudhiList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
   const handleAddtarasudhi = () => {
     setIsModalOpen(true);
@@ -17,13 +19,19 @@ const Tarasudhiomponent = () => {
   };
 
   const handleModalSubmit = ({ period, numbers }) => {
-    settarasudhiList([...tarasudhiList, { period, numbers }]);
+    const updatedList = [...tarasudhiList, { period, numbers }];
+    settarasudhiList(updatedList);
+    console.log(tarasudhiList);
+    const formattedList = updatedList.map((tarasudhi, index) => `${tarasudhi.numbers.join('/')} : ${tarasudhi.period}`);
+    onChangeTara(prev => ({ ...prev, 'TARA SUDDHI': [...formattedList] }));
   };
 
   const handleDeletetarasudhi = (index) => {
     const updatedList = [...tarasudhiList];
     updatedList.splice(index, 1);
     settarasudhiList(updatedList);
+    const formattedList = updatedList.map(tara => `${tara.numbers.join('/')} : ${tara.period}`);
+    onChangeTara(prev => ({ ...prev, 'TARA SUDDHI': [...formattedList] }));
   };
 
   return (
@@ -32,7 +40,7 @@ const Tarasudhiomponent = () => {
       {tarasudhiList.map((tarasudhi, index) => (
         <div key={index} style={{ display: "flex", gap: "6px", alignItems: 'center' }}>
           <p className='font-bold'>Period: <span className='font-normal'>{tarasudhi.period}</span></p>
-          <p className='font-bold'>Numbers: <span className='font-normal'>{tarasudhi.numbers.join(', ')}</span></p>
+          <p className='font-bold'>Numbers: <span className='font-normal'>{tarasudhi.numbers.join('/')}</span></p>
 
 
           <IconButton

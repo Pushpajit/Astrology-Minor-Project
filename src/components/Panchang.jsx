@@ -180,12 +180,14 @@ function Panchang(props) {
             <div className="flex flex-wrap justify-between  gap-5 w-full">
               {entries && entries.map((item, ind) => (
                 (item[0] !== "YOGINI" &&
-                  item[0] !== "CHANDRA SUDDHI" &&
-                  item[0] !== "GHATA CHANDRA") &&
+                item[0] !== "CHANDRA SUDDHI" &&
+                item[0] !== "GHATA CHANDRA") &&
                 item[0] !== "AUSPICIOUS TIME" &&
                 item[0] !== "BARRED/INAUSPICIOUS TIME" &&
                 item[0] !== "TARA SUDDHI" &&
                 item[0] !== "_id" &&
+                item[0] !== "_v0" &&
+                
 
                 (item[0].toLowerCase().includes(searchQuery.toLowerCase()) &&
                   <div key={ind} className="border border-slate-300 p-3 sm:w-[300px] w-full rounded-md hover:border-l-4 hover:border-r-cyan-400 hover:border-r-4 hover:border-l-cyan-400 hover:cursor-pointer hover:shadow-2xl bg-[#1B2845] text-white hover:scale-105 transition-all">
@@ -338,7 +340,7 @@ function Panchang(props) {
           <div>
             <p className='font-bold'>CHANDRA SUDDHI</p>
             {/*  */}
-            {panjiData.length > 0 && Object.entries(panjiData[0]["CHANDRA SUDDHI"])?.map(([key, value]) => {
+            {panjiData.length > 0 && panjiData[0]["CHANDRA SUDDHI"] && Object.entries(panjiData[0]["CHANDRA SUDDHI"])?.map(([key, value]) => {
               return (
                 <div className='flex gap-2 items-center space-y-4 '>
                   <p className='w-[150px]'>{key}</p>
@@ -360,7 +362,7 @@ function Panchang(props) {
 
           <div>
             <p className='font-bold mt-5'>GHATA CHANDRA</p>
-            {panjiData.length > 0 && Object.entries(panjiData[0]["GHATA CHANDRA"])?.map(([key, value]) => {
+            {panjiData.length > 0 && panjiData[0]["GHATA CHANDRA"] && Object.entries(panjiData[0]["GHATA CHANDRA"])?.map(([key, value]) => {
               return (
                 <div className='flex gap-2 items-center space-y-4'>
                   <p className='w-[150px]'>{key}</p>

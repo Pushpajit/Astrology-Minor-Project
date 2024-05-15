@@ -29,8 +29,8 @@ const PeriodSelectionModal = ({ onClose, onSubmit, firstValue }) => {
   const handleSubmit = () => {
     if (period && selectedSigns.length > 0) {
       onSubmit({ period, numbers: selectedSigns });
-      setPeriod('');
-      setSelectedSigns([]);
+      // setPeriod('');
+      // setSelectedSigns([]);
       onClose();
     } else {
       alert('Please select period and signs.');
